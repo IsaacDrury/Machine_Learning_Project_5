@@ -1,9 +1,7 @@
 using Unity.MLAgents;
 using UnityEngine;
-using System.Collections.Generic;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
-
 
 public class CubeAgent : Agent
 {
@@ -25,9 +23,7 @@ public class CubeAgent : Agent
         }
 
         // Move the target to a new spot
-        Target.localPosition = new Vector3(Random.value * 8 - 4,
-                                           0.5f,
-                                           Random.value * 8 - 4);
+        Target.localPosition = new Vector3(Random.value * 8 - 4, 0.5f, Random.value * 8 - 4);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
