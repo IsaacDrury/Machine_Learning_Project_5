@@ -7,11 +7,16 @@ public class CubeAgent : Agent
 {
     // Start is called once before the first execution of Update after the Agent is created
     private Rigidbody rBody;
+    private float prevDist;
+
+    public float forceMultiplier = 10;
+    public Transform Target;
+
     void Start()
     {
         rBody = this.GetComponent<Rigidbody>();
     }
-    public Transform Target;
+
     public override void OnEpisodeBegin()
     {
        // If the Agent fell, zero its momentum
@@ -35,7 +40,7 @@ public class CubeAgent : Agent
         sensor.AddObservation(rBody.linearVelocity.x);
         sensor.AddObservation(rBody.linearVelocity.z);
     }
-    public float forceMultiplier = 10;
+
     public override void OnActionReceived(ActionBuffers actionBuffers)
     {
         // Actions, size = 2
@@ -52,6 +57,11 @@ public class CubeAgent : Agent
         {
             SetReward(1.0f);
             EndEpisode();
+        }
+
+        else if (distanceToTarget - prevDist < 0)
+        {
+            SetReward(0.0001f);
         }
 
         // Fell off platform
