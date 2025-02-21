@@ -19,16 +19,17 @@ public class CubeAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-       // If the Agent fell, zero its momentum
+        // If the Agent fell, zero its momentum
         if (this.transform.localPosition.y < 0)
         {
             this.rBody.angularVelocity = Vector3.zero;
             this.rBody.linearVelocity = Vector3.zero;
-            this.transform.localPosition = new Vector3( 0, 0.5f, 0);
+            this.transform.localPosition = new Vector3( 0, 1, 0);
         }
 
         // Move the target to a new spot
-        Target.localPosition = new Vector3(Random.value * 8 - 4, 0.5f, Random.value * 8 - 4);
+        Target.localPosition = new Vector3(Random.value * 8 - 4, 1, Random.value * 8 - 4);
+        prevDist = Vector3.Distance(this.transform.localPosition, Target.transform.localPosition);
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -59,9 +60,9 @@ public class CubeAgent : Agent
             EndEpisode();
         }
 
-        else if (distanceToTarget - prevDist < 0)
+        else if (distanceToTarget < prevDist)
         {
-            SetReward(0.0001f);
+            SetReward(0.01f);
         }
 
         // Fell off platform
@@ -69,5 +70,7 @@ public class CubeAgent : Agent
         {
             EndEpisode();
         }
+
+        prevDist = Vector3.Distance(this.transform.localPosition, Target.transform.localPosition);
     }
 }

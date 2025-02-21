@@ -904,8 +904,8 @@ MonoBehaviour:
     maxStep: 0
   hasUpgradedFromAgentParameters: 1
   MaxStep: 0
-  Target: {fileID: 1594650755}
   forceMultiplier: 10
+  Target: {fileID: 1594650755}
 --- !u!114 &1790730736
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,6 +1011,7 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: -5931407128599730752, guid: e701a44f20d15c446867cc664fe510c5, type: 3}
     - {fileID: -5780612152077321011, guid: e701a44f20d15c446867cc664fe510c5, type: 3}
+    - {fileID: 2698972687280268736, guid: e701a44f20d15c446867cc664fe510c5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
