@@ -2,6 +2,7 @@ using Unity.MLAgents;
 using UnityEngine;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.VisualScripting;
 
 public class CubeAgent : Agent
 {
@@ -24,11 +25,11 @@ public class CubeAgent : Agent
         {
             this.rBody.angularVelocity = Vector3.zero;
             this.rBody.linearVelocity = Vector3.zero;
-            this.transform.localPosition = new Vector3( 0, 1, 0);
+            this.transform.localPosition = new Vector3( 0, 1.5f, 0);
         }
 
         // Move the target to a new spot
-        Target.localPosition = new Vector3(Random.value * 8 - 4, 1, Random.value * 8 - 4);
+        Target.localPosition = new Vector3(Random.value * 8 - 4, 1.0f, Random.value * 8 - 4);
         prevDist = Vector3.Distance(this.transform.localPosition, Target.transform.localPosition);
     }
     public override void CollectObservations(VectorSensor sensor)
@@ -52,7 +53,6 @@ public class CubeAgent : Agent
 
         // Rewards
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
-
         // Reached target
         if (distanceToTarget < 1.42f)
         {
@@ -60,9 +60,9 @@ public class CubeAgent : Agent
             EndEpisode();
         }
 
-        else if (distanceToTarget < prevDist)
+        else if (distanceToTarget < prevDist && prevDist - distanceToTarget > 0.5f)
         {
-            SetReward(0.01f);
+            SetReward(0.0001f);
         }
 
         // Fell off platform
