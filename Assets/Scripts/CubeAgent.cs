@@ -6,10 +6,10 @@ using Unity.MLAgents.Actuators;
 public class CubeAgent : Agent
 {
     // Start is called once before the first execution of Update after the Agent is created
-    Rigidbody rBody;
+    private Rigidbody rBody;
     void Start()
     {
-        rBody = GetComponent<Rigidbody>();
+        rBody = this.GetComponent<Rigidbody>();
     }
     public Transform Target;
     public override void OnEpisodeBegin()
@@ -18,7 +18,7 @@ public class CubeAgent : Agent
         if (this.transform.localPosition.y < 0)
         {
             this.rBody.angularVelocity = Vector3.zero;
-            this.rBody.velocity = Vector3.zero;
+            this.rBody.linearVelocity = Vector3.zero;
             this.transform.localPosition = new Vector3( 0, 0.5f, 0);
         }
 
@@ -32,8 +32,8 @@ public class CubeAgent : Agent
         sensor.AddObservation(this.transform.localPosition);
 
         // Agent velocity
-        sensor.AddObservation(rBody.velocity.x);
-        sensor.AddObservation(rBody.velocity.z);
+        sensor.AddObservation(rBody.linearVelocity.x);
+        sensor.AddObservation(rBody.linearVelocity.z);
     }
     public float forceMultiplier = 10;
     public override void OnActionReceived(ActionBuffers actionBuffers)
