@@ -8,7 +8,7 @@ public class CubeAgent : Agent
     // Start is called once before the first execution of Update after the Agent is created
     private Rigidbody rBody;
 
-    public float forceMultiplier = 10f;
+    public float forceMultiplier = 20f;
     public Transform Target;
 
     void Start()
@@ -52,6 +52,7 @@ public class CubeAgent : Agent
 
         // Rewards
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
+        forceMultiplier = 20f;
 
         // Reached target
         if (distanceToTarget < 1.42f)
