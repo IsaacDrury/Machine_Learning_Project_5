@@ -7,9 +7,8 @@ public class CubeAgent : Agent
 {
     // Start is called once before the first execution of Update after the Agent is created
     private Rigidbody rBody;
-    private float prevDist;
 
-    public float forceMultiplier = 10;
+    public float forceMultiplier = 10f;
     public Transform Target;
 
     void Start()
@@ -24,11 +23,13 @@ public class CubeAgent : Agent
         {
             this.rBody.angularVelocity = Vector3.zero;
             this.rBody.linearVelocity = Vector3.zero;
-            this.transform.localPosition = new Vector3( 0, 0.5f, 0);
+            this.transform.localPosition = new Vector3( 0, 1.5f, 0);
         }
 
         // Move the target to a new spot
-        Target.localPosition = new Vector3(Random.value * 8 - 4, 0.5f, Random.value * 8 - 4);
+        Target.localPosition = new Vector3(Random.value * 8 - 4, 1.5f, Random.value * 8 - 4);
+        Target.GetComponent<Rigidbody>().linearVelocity = Vector3.zero;
+        Target.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
     }
     public override void CollectObservations(VectorSensor sensor)
     {
@@ -59,13 +60,13 @@ public class CubeAgent : Agent
             EndEpisode();
         }
 
-        else if (distanceToTarget - prevDist < 0)
-        {
-            SetReward(0.0001f);
-        }
-
         // Fell off platform
         else if (this.transform.localPosition.y < 0)
+        {
+            EndEpisode();
+        }
+
+        else if (Target.transform.localPosition.y < 0)
         {
             EndEpisode();
         }
