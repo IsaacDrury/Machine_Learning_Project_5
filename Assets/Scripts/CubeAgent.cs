@@ -2,6 +2,7 @@ using Unity.MLAgents;
 using UnityEngine;
 using Unity.MLAgents.Sensors;
 using Unity.MLAgents.Actuators;
+using Unity.VisualScripting;
 
 public class CubeAgent : Agent
 {
@@ -18,7 +19,7 @@ public class CubeAgent : Agent
 
     public override void OnEpisodeBegin()
     {
-       // If the Agent fell, zero its momentum
+        // If the Agent fell, zero its momentum
         if (this.transform.localPosition.y < 0)
         {
             this.rBody.angularVelocity = Vector3.zero;
@@ -53,7 +54,6 @@ public class CubeAgent : Agent
         // Rewards
         float distanceToTarget = Vector3.Distance(this.transform.localPosition, Target.localPosition);
         forceMultiplier = 20f;
-
         // Reached target
         if (distanceToTarget < 1.42f)
         {
